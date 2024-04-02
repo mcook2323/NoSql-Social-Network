@@ -42,7 +42,7 @@ module.exports = {
   // Update user 
   async updateUser(req, res) {
     try {
-      const user = await User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
+      const user = await User.findByIdAndUpdate({ _id: req.params.userId }, req.body, { new: true });
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
@@ -89,31 +89,31 @@ module.exports = {
 
   // Remove a friend from the database 
   async removeFriend({ params }, res) {
-    try {
-      const dbUserData = await User.findOneAndUpdate(
-        { _id: params.userId },
-        { $pull: { friends: params.friendId } },
-        { new: true }
-      );
-  
-      if (!dbUserData) {
-        return res.status(404).json({ message: 'No user with this id!' });
-      }
-  
-      // Check if friend was removed
-      const removed = !dbUserData.friends.includes(params.friendId);
-  
-      // Return response with appropriate message
-      if (removed) {
-        res.json({ message: 'Friend removed successfully!', dbUserData });
-      } else {
-        res.json(dbUserData);
-      }
-    } catch (err) {
-      console.error(err);
-      res.status(400).json(err);
+  try {
+    const dbUserData = await User.findOneAndUpdate(
+      { _id: params.userId },
+      { $pull: { friends: params.friendId } },
+      { new: true }
+    );
+
+    if (!dbUserData) {
+      return res.status(404).json({ message: 'No user with this id!' });
     }
+
+    // Check if friend was removed
+    const removed = !dbUserData.friends.includes(params.friendId);
+
+    // Return response with appropriate message
+    if (removed) {
+      res.json({ message: 'Friend removed successfully!', dbUserData });
+    } else {
+      res.json(dbUserData);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(400).json(err);
   }
-  
+}
+
   
 };

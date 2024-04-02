@@ -13,7 +13,7 @@ removeFriend
 // GET and POST all users
 router.route('/').get(getUsers).post(createUser)
 
-// GET and POST with id
+// GET, Update, and Delete users
 router.route('/:userId').get(getSingleUser).put(updateUser).delete(deleteUser)
 
 // Add friend and DELETE friend

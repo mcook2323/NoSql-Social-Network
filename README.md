@@ -76,5 +76,5 @@ This project utilizes Express.js, Mongoose, Nodemon, and MongoDB to create a RES
 
 ## Walkthrough Video
 
-![Walkthrough Video]()
+![Walkthrough Video](./Untitled_%20Apr%202,%202024%204_28%20PM.gif)
 
